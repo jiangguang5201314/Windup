@@ -1,7 +1,9 @@
-﻿*.dll
+*.dll
 *.exe
 *.pdb
 [Dd]ebug*/
 [Rr]elease*/
 *.cache
 
+Windup.userprefs
+*.userprefs
