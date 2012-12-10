@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO.Ports;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Windup.SerialTalker
 {
@@ -19,6 +20,23 @@ namespace Windup.SerialTalker
             serial.ReadTimeout = 500;
             serial.WriteTimeout = 500;
         }
+
+		void RunReadAndWriteThread ()
+		{
+			Thread read = new Thread(new ThreadStart(ReadThread));
+		}
+
+		void ReadThread ()
+		{
+			lock (serial) {
+			}
+		}
+
+		void WriteThread ()
+		{
+			lock (serial) {
+			}
+		}
 
         public SerialAgent()
         {
@@ -141,7 +159,7 @@ namespace Windup.SerialTalker
 
         public void AgentOpen()
         {
-            serial.DataReceived += new SerialDataReceivedEventHandler(DataReceviedHandler);
+            //serial.DataReceived += new SerialDataReceivedEventHandler(DataReceviedHandler);
             serial.Open();
         }
 
@@ -168,6 +186,7 @@ namespace Windup.SerialTalker
         }
 
 
+		/*
         private void DataReceviedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             var sp = sender as SerialPort;
@@ -183,6 +202,8 @@ namespace Windup.SerialTalker
                 }
             }
         }
+
+*/
 
     }
 }
