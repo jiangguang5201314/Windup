@@ -11,9 +11,11 @@ namespace Windup.SerialTalker
     public sealed class SerialAgent
     {
         SerialPort serial;
-        int queueFlag = 0;
-        int delegateFlag = 0;
+        //int queueFlag = 0;
+        //int delegateFlag = 0;
         TransferDataDelegate transferDataDelegate;
+		Thread readThread = null;
+		object lock_s = new object();
 
         void defaultTimeoutSet()
         {
@@ -21,21 +23,15 @@ namespace Windup.SerialTalker
             serial.WriteTimeout = 500;
         }
 
-		void RunReadAndWriteThread ()
-		{
-			Thread read = new Thread(new ThreadStart(ReadThread));
-		}
-
 		void ReadThread ()
 		{
-			lock (serial) {
-			}
-		}
-
-		void WriteThread ()
-		{
-			lock (serial) {
-			}
+			do{
+				if(serial.BytesToRead > 0){
+					lock(lock_s){
+						serial.ReadByte();
+					}
+				}
+			}while(true);
 		}
 
         public SerialAgent()
@@ -84,15 +80,13 @@ namespace Windup.SerialTalker
         {
             SerialPort sp = null;
             bool result = true;
-            try
-            {
+            try{
                 sp = new SerialPort(portName, baudRate);
                 if(!sp.IsOpen)
                     sp.Open();
                 sp.Close();
             }
-            catch(Exception)
-            {
+            catch(Exception){
                 result = false;
             }
             return result;
@@ -161,6 +155,8 @@ namespace Windup.SerialTalker
         {
             //serial.DataReceived += new SerialDataReceivedEventHandler(DataReceviedHandler);
             serial.Open();
+			readThread = new Thread(new ThreadStart(ReadThread));
+			readThread.Start();
         }
 
         public WriteFlagEnum AgentWrite(byte[] what)
@@ -168,12 +164,12 @@ namespace Windup.SerialTalker
             var flag = WriteFlagEnum.Successed;
             if (!serial.IsOpen)
                 flag = WriteFlagEnum.NotOpen;
-            try
-            {
-                serial.Write(what, 0, what.Length);
+            try{
+				lock(lock_s){
+	                serial.Write(what, 0, what.Length);
+				}
             }
-            catch
-            {
+            catch{
                 flag = WriteFlagEnum.Exception;
             }
             return flag;
@@ -181,6 +177,8 @@ namespace Windup.SerialTalker
 
         public void AgentClose()
         {
+			if(readThread.IsAlive)
+				readThread.Abort();
             if (serial.IsOpen)
                 serial.Close();
         }
@@ -202,8 +200,6 @@ namespace Windup.SerialTalker
                 }
             }
         }
-
 */
-
     }
 }

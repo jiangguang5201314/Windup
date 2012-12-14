@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerialListTest.cs" />
+    <Compile Include="SerialAgentTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Windup.SerialTalker\Windup.SerialTalker.csproj">
