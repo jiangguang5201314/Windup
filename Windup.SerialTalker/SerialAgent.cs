@@ -14,7 +14,7 @@ namespace Windup.SerialTalker
         //int queueFlag = 0;
         //int delegateFlag = 0;
         TransferDataDelegate transferDataDelegate;
-		Thread readThread = null;
+		Thread readRunner = null;
 		object lock_s = new object();
 
         void defaultTimeoutSet()
@@ -155,8 +155,8 @@ namespace Windup.SerialTalker
         {
             //serial.DataReceived += new SerialDataReceivedEventHandler(DataReceviedHandler);
             serial.Open();
-			readThread = new Thread(new ThreadStart(ReadThread));
-			readThread.Start();
+			readRunner = new Thread(new ThreadStart(ReadThread));
+			readRunner.Start();
         }
 
         public WriteFlagEnum AgentWrite(byte[] what)
@@ -177,8 +177,8 @@ namespace Windup.SerialTalker
 
         public void AgentClose()
         {
-			if(readThread.IsAlive)
-				readThread.Abort();
+			if(readRunner.IsAlive)
+				readRunner.Abort();
             if (serial.IsOpen)
                 serial.Close();
         }
