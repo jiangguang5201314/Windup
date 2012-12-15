@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windup.Communication", "Win
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windup.SerialTalkerTest", "Windup.SerialTalkerTest\Windup.SerialTalkerTest.csproj", "{C3C4DE06-D1D3-4E7F-95DB-7CFF34D9E34B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windup.ConsoleTest", "Windup.ConsoleTest\Windup.ConsoleTest.csproj", "{335E82E9-F896-4204-9979-95FAE813A166}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -23,6 +25,10 @@ Global
 		{2A9C102A-3388-434C-B185-4F433DB3025F}.Debug|x86.Build.0 = Debug|x86
 		{2A9C102A-3388-434C-B185-4F433DB3025F}.Release|x86.ActiveCfg = Release|x86
 		{2A9C102A-3388-434C-B185-4F433DB3025F}.Release|x86.Build.0 = Release|x86
+		{335E82E9-F896-4204-9979-95FAE813A166}.Debug|x86.ActiveCfg = Debug|x86
+		{335E82E9-F896-4204-9979-95FAE813A166}.Debug|x86.Build.0 = Debug|x86
+		{335E82E9-F896-4204-9979-95FAE813A166}.Release|x86.ActiveCfg = Release|x86
+		{335E82E9-F896-4204-9979-95FAE813A166}.Release|x86.Build.0 = Release|x86
 		{B25F2829-D9AB-4CE6-97FD-3F606CBF37C3}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{B25F2829-D9AB-4CE6-97FD-3F606CBF37C3}.Debug|x86.Build.0 = Debug|Any CPU
 		{B25F2829-D9AB-4CE6-97FD-3F606CBF37C3}.Release|x86.ActiveCfg = Release|Any CPU
