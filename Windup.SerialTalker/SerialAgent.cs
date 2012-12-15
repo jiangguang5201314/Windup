@@ -30,7 +30,7 @@ namespace Windup.SerialTalker
 				if(serial.BytesToRead > 0){
 					lock(lock_s){
 						var result = (char)serial.ReadByte();
-						Debug.Print(result);
+						Debug.Print(result.ToString());
 					}
 				}
 			}while(true);
