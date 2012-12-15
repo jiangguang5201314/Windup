@@ -5,7 +5,6 @@ using System.Text;
 using System.IO.Ports;
 using System.Diagnostics;
 using System.Threading;
-using System.Diagnostics;
 
 namespace Windup.SerialTalker
 {
@@ -78,7 +77,7 @@ namespace Windup.SerialTalker
             defaultTimeoutSet();
         }
 
-        public bool TouchAgentPort(string portName, int baudRate)
+        public static bool TouchAgentPort(string portName, int baudRate)
         {
             SerialPort sp = null;
             bool result = true;
