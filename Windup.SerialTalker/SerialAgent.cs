@@ -25,13 +25,15 @@ namespace Windup.SerialTalker
 
 		void ReadThread ()
 		{
+			Debug.WriteLine("Enter ReadThread");
 			do{
 				if(serial.BytesToRead > 0){
 					lock(lock_s){
 						var result = (char)serial.ReadByte();
-						Debug.Print(result.ToString());
+						Debug.WriteLine(result);
 					}
 				}
+				Thread.Sleep(10);
 			}while(true);
 		}
 
