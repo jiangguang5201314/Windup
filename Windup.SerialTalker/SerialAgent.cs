@@ -5,6 +5,7 @@ using System.Text;
 using System.IO.Ports;
 using System.Diagnostics;
 using System.Threading;
+using System.Diagnostics;
 
 namespace Windup.SerialTalker
 {
@@ -28,7 +29,8 @@ namespace Windup.SerialTalker
 			do{
 				if(serial.BytesToRead > 0){
 					lock(lock_s){
-						serial.ReadByte();
+						var result = (char)serial.ReadByte();
+						Debug.Print(result);
 					}
 				}
 			}while(true);
