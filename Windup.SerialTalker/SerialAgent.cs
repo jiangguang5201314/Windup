@@ -162,19 +162,20 @@ namespace Windup.SerialTalker
 			readRunner.Start();
         }
 
-        public WriteFlagEnum AgentWrite(byte[] what)
-        {
-            var flag = WriteFlagEnum.Successed;
-            if (!serial.IsOpen)
-                flag = WriteFlagEnum.NotOpen;
-            try{
-				lock(lock_s){
-	                serial.Write(what, 0, what.Length);
+        public WriteFlagEnum AgentWrite (byte[] what)
+		{
+			var flag = WriteFlagEnum.Successed;
+			if (!serial.IsOpen)
+				flag = WriteFlagEnum.NotOpen;
+			else {
+				try {
+					lock (lock_s) {
+						serial.Write (what, 0, what.Length);
+					}
+				} catch {
+					flag = WriteFlagEnum.Exception;
 				}
-            }
-            catch{
-                flag = WriteFlagEnum.Exception;
-            }
+			}
             return flag;
         }
 
