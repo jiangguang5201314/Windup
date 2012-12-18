@@ -101,11 +101,10 @@ namespace Windup.SerialTalker
             transferDataDelegate = tdd;
         }
 
-        public Queue<Int32> DataQueue
-        {
-            get;
-            private set;
-        }
+		public void BindTransferDataByLinesDelegate (TransferDataByLinesDelegate tdbd)
+		{
+			transferDataByLinesDelegate = tdbd;
+		}
 
         public string AgentPortName
         {
