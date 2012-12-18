@@ -14,7 +14,7 @@ namespace Windup.SerialTalker
         //int queueFlag = 0;
         //int delegateFlag = 0;
         TransferDataDelegate transferDataDelegate;
-		TransferDataByLinesDelegate transferDataByLinesDelegate;
+		TransferDataByLinesDelegate transferDataByLinesDelegate = null;
 		Thread readRunner = null;
 		object lock_s = new object();
 
