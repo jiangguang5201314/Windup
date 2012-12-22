@@ -15,8 +15,19 @@ namespace Windup.SerialTalker
         //int delegateFlag = 0;
         TransferDataDelegate transferDataDelegate;
 		TransferDataByLinesDelegate transferDataByLinesDelegate = null;
+		string platform = "";
 		Thread readRunner = null;
 		object lock_s = new object();
+
+		void JudgePlatform ()
+		{
+			if (Platform.IsMac)
+				platform = "Mac";
+			else if (Platform.IsWindows)
+				platform = "Win32";
+			else
+				platform = "Linux";
+		}
 
         void defaultTimeoutSet()
         {
@@ -42,6 +53,7 @@ namespace Windup.SerialTalker
         {
             serial = new SerialPort();
             defaultTimeoutSet();
+			JudgePlatform();
         }
 
         public SerialAgent(string portName)
@@ -49,6 +61,7 @@ namespace Windup.SerialTalker
             Debug.Assert(!string.IsNullOrEmpty(portName));
             serial = new SerialPort(portName);
             defaultTimeoutSet();
+			JudgePlatform();
         }
 
         public SerialAgent(string portName, int baudRate)
@@ -56,6 +69,7 @@ namespace Windup.SerialTalker
             Debug.Assert(!string.IsNullOrEmpty(portName));
             serial = new SerialPort(portName, baudRate);
             defaultTimeoutSet();
+			JudgePlatform();
         }
 
         public SerialAgent(string portName, int baudRate, Parity parity)
@@ -63,6 +77,7 @@ namespace Windup.SerialTalker
             Debug.Assert(!string.IsNullOrEmpty(portName));
             serial = new SerialPort(portName, baudRate, parity);
             defaultTimeoutSet();
+			JudgePlatform();
         }
 
         public SerialAgent(string portName, int baudRate, Parity parity, int dataBits)
@@ -70,6 +85,7 @@ namespace Windup.SerialTalker
             Debug.Assert(!string.IsNullOrEmpty(portName));
             serial = new SerialPort(portName, baudRate, parity, dataBits);
             defaultTimeoutSet();
+			JudgePlatform();
         }
 
 
@@ -78,6 +94,7 @@ namespace Windup.SerialTalker
             Debug.Assert(!string.IsNullOrEmpty(portName));
             serial = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
             defaultTimeoutSet();
+			JudgePlatform();
         }
 
         public static bool TouchAgentPort(string portName, int baudRate)
@@ -104,6 +121,10 @@ namespace Windup.SerialTalker
 		public void BindTransferDataByLinesDelegate (TransferDataByLinesDelegate tdbd)
 		{
 			transferDataByLinesDelegate = tdbd;
+		}
+
+		public void SetTerminationCharArray (Int32[] charArray)
+		{
 		}
 
         public string AgentPortName
