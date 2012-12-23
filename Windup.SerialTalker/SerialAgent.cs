@@ -21,12 +21,7 @@ namespace Windup.SerialTalker
 
 		void JudgePlatform ()
 		{
-			if (Platform.IsMac)
-				platform = "Mac";
-			else if (Platform.IsWindows)
-				platform = "Win32";
-			else
-				platform = "Linux";
+			platform = Platform.IsMac ? "Mac OSX" : (Platform.IsWindows ? "Windows" : "Linux");
 		}
 
         void defaultTimeoutSet()
