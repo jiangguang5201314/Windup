@@ -16,12 +16,19 @@ namespace Windup.SerialTalker
         TransferDataDelegate transferDataDelegate;
 		TransferDataByLinesDelegate transferDataByLinesDelegate = null;
 		string platform = "";
+		string runtime = "";
 		Thread readRunner = null;
 		object lock_s = new object();
 
 		void JudgePlatform ()
 		{
 			platform = Platform.IsMac ? "Mac OSX" : (Platform.IsWindows ? "Windows" : "Linux");
+		}
+
+		void JudgeRuntime ()
+		{
+			Type t = Type.GetType ("Mono.Runtime");
+			runtime = t != null ? "Mono" : ".NET";
 		}
 
         void defaultTimeoutSet()
@@ -49,6 +56,7 @@ namespace Windup.SerialTalker
             serial = new SerialPort();
             defaultTimeoutSet();
 			JudgePlatform();
+			JudgeRuntime();
         }
 
         public SerialAgent(string portName)
@@ -57,6 +65,7 @@ namespace Windup.SerialTalker
             serial = new SerialPort(portName);
             defaultTimeoutSet();
 			JudgePlatform();
+			JudgeRuntime();
         }
 
         public SerialAgent(string portName, int baudRate)
@@ -65,6 +74,7 @@ namespace Windup.SerialTalker
             serial = new SerialPort(portName, baudRate);
             defaultTimeoutSet();
 			JudgePlatform();
+			JudgeRuntime();
         }
 
         public SerialAgent(string portName, int baudRate, Parity parity)
@@ -73,6 +83,7 @@ namespace Windup.SerialTalker
             serial = new SerialPort(portName, baudRate, parity);
             defaultTimeoutSet();
 			JudgePlatform();
+			JudgeRuntime();
         }
 
         public SerialAgent(string portName, int baudRate, Parity parity, int dataBits)
@@ -81,6 +92,7 @@ namespace Windup.SerialTalker
             serial = new SerialPort(portName, baudRate, parity, dataBits);
             defaultTimeoutSet();
 			JudgePlatform();
+			JudgeRuntime();
         }
 
 
@@ -90,6 +102,7 @@ namespace Windup.SerialTalker
             serial = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
             defaultTimeoutSet();
 			JudgePlatform();
+			JudgeRuntime();
         }
 
         public static bool TouchAgentPort(string portName, int baudRate)
