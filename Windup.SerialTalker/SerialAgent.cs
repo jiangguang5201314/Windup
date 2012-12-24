@@ -234,5 +234,10 @@ namespace Windup.SerialTalker
             }
         }
 */
+
+		public override string ToString ()
+		{
+			return string.Format ("[SerialAgent: AgentPortName={0}, AgentBaudRate={1}, AgentParity={2}, AgentDataBits={3}, AgentStopBits={4}, AgentHandshake={5}, AgentReadTimeout={6}, AgentWriteTimeout={7}]", AgentPortName, AgentBaudRate, AgentParity, AgentDataBits, AgentStopBits, AgentHandshake, AgentReadTimeout, AgentWriteTimeout);
+		}
     }
 }
