@@ -52,53 +52,35 @@ namespace Windup.SerialTalker
 		}
 
         public SerialAgent()
+			: this("", 9600, Parity.None, 8, StopBits.One)
         {
-            serial = new SerialPort();
-            defaultTimeoutSet();
-			JudgePlatform();
-			JudgeRuntime();
         }
 
         public SerialAgent(string portName)
+			: this(portName, 9600, Parity.None, 8, StopBits.One)
         {
-            Debug.Assert(!string.IsNullOrEmpty(portName));
-            serial = new SerialPort(portName);
-            defaultTimeoutSet();
-			JudgePlatform();
-			JudgeRuntime();
         }
 
         public SerialAgent(string portName, int baudRate)
+			: this(portName, baudRate, Parity.None, 8, StopBits.One)
         {
-            Debug.Assert(!string.IsNullOrEmpty(portName));
-            serial = new SerialPort(portName, baudRate);
-            defaultTimeoutSet();
-			JudgePlatform();
-			JudgeRuntime();
         }
 
         public SerialAgent(string portName, int baudRate, Parity parity)
+			: this(portName, baudRate, parity, 8, StopBits.One)
         {
-            Debug.Assert(!string.IsNullOrEmpty(portName));
-            serial = new SerialPort(portName, baudRate, parity);
-            defaultTimeoutSet();
-			JudgePlatform();
-			JudgeRuntime();
         }
 
         public SerialAgent(string portName, int baudRate, Parity parity, int dataBits)
+			: this(portName, baudRate, parity, dataBits, StopBits.One)
         {
-            Debug.Assert(!string.IsNullOrEmpty(portName));
-            serial = new SerialPort(portName, baudRate, parity, dataBits);
-            defaultTimeoutSet();
-			JudgePlatform();
-			JudgeRuntime();
         }
 
 
-        public SerialAgent(string portName, int baudRate, Parity parity, int dataBits, StopBits stopBits)
+        public SerialAgent(string portName = "", int baudRate = 9600, Parity parity = Parity.None, 
+		                   int dataBits = 8 , StopBits stopBits = StopBits.One)
         {
-            Debug.Assert(!string.IsNullOrEmpty(portName));
+            //Debug.Assert(!string.IsNullOrEmpty(portName));
             serial = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
             defaultTimeoutSet();
 			JudgePlatform();
