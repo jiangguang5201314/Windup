@@ -81,7 +81,10 @@ namespace Windup.SerialTalker
 		                   int dataBits = 8 , StopBits stopBits = StopBits.One)
         {
             //Debug.Assert(!string.IsNullOrEmpty(portName));
-            serial = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
+			if(string.IsNullOrEmpty(portName))
+				serial = new SerialPort();
+			else
+            	serial = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
             defaultTimeoutSet();
 			JudgePlatform();
 			JudgeRuntime();
