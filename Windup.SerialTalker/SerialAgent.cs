@@ -11,8 +11,6 @@ namespace Windup.SerialTalker
     public sealed class SerialAgent
     {
         SerialPort serial;
-        //int queueFlag = 0;
-        //int delegateFlag = 0;
         TransferDataDelegate transferDataDelegate;
 		TransferDataByLinesDelegate transferDataByLinesDelegate = null;
 		string platform = "";
@@ -49,6 +47,14 @@ namespace Windup.SerialTalker
 				}
 				Thread.Sleep(10);
 			}while(true);
+		}
+
+		void DataReceviedHandler(object sender, SerialDataReceivedEventArgs e)
+		{
+			var sp = sender as SerialPort;
+			if (null != sp) {
+				var temp = sp.ReadByte();
+			}
 		}
 
         public SerialAgent()
@@ -168,15 +174,34 @@ namespace Windup.SerialTalker
             get { return serial.WriteTimeout; }
         }
 
-        public void AgentOpen()
-        {
-            //serial.DataReceived += new SerialDataReceivedEventHandler(DataReceviedHandler);
-            serial.Open();
-			readRunner = new Thread(new ThreadStart(ReadThread));
-			readRunner.Start();
+        public void AgentOpen ()
+		{
+			if (platform == "Windows") {
+				serial.DataReceived += new SerialDataReceivedEventHandler (DataReceviedHandler);
+				serial.Open ();
+			} else {
+				serial.Open();
+				readRunner = new Thread (new ThreadStart (ReadThread));
+				readRunner.Start ();
+			}
         }
 
-        public WriteFlagEnum AgentWrite (byte[] what)
+		WriteFlagEnum WriteWindows (byte[] what)
+		{
+			var flag = WriteFlagEnum.Successed;
+			if (!serial.IsOpen)
+				flag = WriteFlagEnum.NotOpen;
+			else {
+				try{
+					serial.Write (what, 0, what.Length);
+				}catch{
+					flag = WriteFlagEnum.Exception;
+				}
+			}
+			return flag;
+		}
+
+		WriteFlagEnum WriteUnix (byte[] what)
 		{
 			var flag = WriteFlagEnum.Successed;
 			if (!serial.IsOpen)
@@ -190,7 +215,15 @@ namespace Windup.SerialTalker
 					flag = WriteFlagEnum.Exception;
 				}
 			}
-            return flag;
+			return flag;
+		}
+
+        public WriteFlagEnum AgentWrite (byte[] what)
+		{
+			if (platform == "Windows")
+				return WriteUnix(what);
+			else
+				return WriteUnix(what);
         }
 
         public void AgentClose()
@@ -201,28 +234,13 @@ namespace Windup.SerialTalker
                 serial.Close();
         }
 
-
-		/*
-        private void DataReceviedHandler(object sender, SerialDataReceivedEventArgs e)
-        {
-            var sp = sender as SerialPort;
-            if (null != sp) {
-                var temp = sp.ReadByte();
-                if (1 == queueFlag) {
-                    if(-1 != temp)
-                        DataQueue.Enqueue(temp);
-                }
-                if (1 == delegateFlag) {
-                    if(-1 != temp)
-                        transferDataDelegate(temp);
-                }
-            }
-        }
-*/
-
 		public override string ToString ()
 		{
-			return string.Format ("[SerialAgent: AgentPortName={0}, AgentBaudRate={1}, AgentParity={2}, AgentDataBits={3}, AgentStopBits={4}, AgentHandshake={5}, AgentReadTimeout={6}, AgentWriteTimeout={7}]", AgentPortName, AgentBaudRate, AgentParity, AgentDataBits, AgentStopBits, AgentHandshake, AgentReadTimeout, AgentWriteTimeout);
+			return string.Format ("[SerialAgent: AgentPortName={0}, AgentBaudRate={1}, " +
+				"AgentParity={2}, AgentDataBits={3}, AgentStopBits={4}, AgentHandshake={5}, " +
+				"AgentReadTimeout={6}, AgentWriteTimeout={7}]", 
+			                      AgentPortName, AgentBaudRate, AgentParity, AgentDataBits, 
+			                      AgentStopBits, AgentHandshake, AgentReadTimeout, AgentWriteTimeout);
 		}
     }
 }
