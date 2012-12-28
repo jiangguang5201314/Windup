@@ -228,7 +228,7 @@ namespace Windup.SerialTalker
 
         public void AgentClose()
         {
-			if(readRunner.IsAlive)
+			if(readRunner.IsAlive && readRunner != null)
 				readRunner.Abort();
             if (serial.IsOpen)
                 serial.Close();
