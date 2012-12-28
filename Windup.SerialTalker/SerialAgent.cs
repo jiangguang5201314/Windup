@@ -101,6 +101,7 @@ namespace Windup.SerialTalker
             var sp = sender as SerialPort;
             if (null != sp) {
                 var temp = sp.ReadByte();
+                Debug.WriteLine(temp.ToString());
             }
         }
 
@@ -206,7 +207,7 @@ namespace Windup.SerialTalker
 
         public void AgentOpen()
         {
-            if (platform == "Windows") {
+            if (platform == "Windows" && ".Net" == runtime) {
                 serial.DataReceived += new SerialDataReceivedEventHandler(DataReceviedHandler);
                 serial.Open();
             } else {
@@ -226,7 +227,7 @@ namespace Windup.SerialTalker
 
         public void AgentClose()
         {
-            if (readRunner.IsAlive && readRunner != null)
+            if (null != readRunner && readRunner.IsAlive)
                 readRunner.Abort();
             if (serial.IsOpen)
                 serial.Close();
