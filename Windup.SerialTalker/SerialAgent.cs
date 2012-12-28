@@ -16,7 +16,54 @@ namespace Windup.SerialTalker
         string platform = "";
         string runtime = "";
         Thread readRunner = null;
-        object lock_s = new object();
+        object lock_s = new object ();
+
+        public string AgentPortName {
+            set { if (!serial.IsOpen) serial.PortName = value; }
+            get { return serial.PortName; }
+        }
+
+        public int AgentBaudRate
+        {
+            set { if (!serial.IsOpen) serial.BaudRate = value; }
+            get { return serial.BaudRate; }
+        }
+
+        public Parity AgentParity
+        {
+            set { if (!serial.IsOpen) serial.Parity = value; }
+            get { return serial.Parity; }
+        }
+
+        public int AgentDataBits
+        {
+            set { if (!serial.IsOpen) serial.DataBits = value; }
+            get { return serial.DataBits; }
+        }
+
+        public StopBits AgentStopBits
+        {
+            set { if (!serial.IsOpen) serial.StopBits = value; }
+            get { return serial.StopBits; }
+        }
+
+        public Handshake AgentHandshake
+        {
+            set { if (!serial.IsOpen) serial.Handshake = value; }
+            get { return serial.Handshake; }
+        }
+
+        public int AgentReadTimeout
+        {
+            set { if (!serial.IsOpen) serial.ReadTimeout = value; }
+            get { return serial.ReadTimeout; }
+        }
+
+        public int AgentWriteTimeout
+        {
+            set { if (!serial.IsOpen) serial.WriteTimeout = value; }
+            get { return serial.WriteTimeout; }
+        }
 
         void JudgePlatform()
         {
@@ -55,6 +102,38 @@ namespace Windup.SerialTalker
             if (null != sp) {
                 var temp = sp.ReadByte();
             }
+        }
+
+        WriteFlagEnum WriteWindows(byte[] what)
+        {
+            var flag = WriteFlagEnum.Successed;
+            if (!serial.IsOpen)
+                flag = WriteFlagEnum.NotOpen;
+            else {
+                try {
+                    serial.Write(what, 0, what.Length);
+                } catch {
+                    flag = WriteFlagEnum.Exception;
+                }
+            }
+            return flag;
+        }
+
+        WriteFlagEnum WriteUnix(byte[] what)
+        {
+            var flag = WriteFlagEnum.Successed;
+            if (!serial.IsOpen)
+                flag = WriteFlagEnum.NotOpen;
+            else {
+                try {
+                    lock (lock_s) {
+                        serial.Write(what, 0, what.Length);
+                    }
+                } catch {
+                    flag = WriteFlagEnum.Exception;
+                }
+            }
+            return flag;
         }
 
         public SerialAgent()
@@ -125,54 +204,6 @@ namespace Windup.SerialTalker
         {
         }
 
-        public string AgentPortName
-        {
-            set { if (!serial.IsOpen) serial.PortName = value; }
-            get { return serial.PortName; }
-        }
-
-        public int AgentBaudRate
-        {
-            set { if (!serial.IsOpen) serial.BaudRate = value; }
-            get { return serial.BaudRate; }
-        }
-
-        public Parity AgentParity
-        {
-            set { if (!serial.IsOpen) serial.Parity = value; }
-            get { return serial.Parity; }
-        }
-
-        public int AgentDataBits
-        {
-            set { if (!serial.IsOpen) serial.DataBits = value; }
-            get { return serial.DataBits; }
-        }
-
-        public StopBits AgentStopBits
-        {
-            set { if (!serial.IsOpen) serial.StopBits = value; }
-            get { return serial.StopBits; }
-        }
-
-        public Handshake AgentHandshake
-        {
-            set { if (!serial.IsOpen) serial.Handshake = value; }
-            get { return serial.Handshake; }
-        }
-
-        public int AgentReadTimeout
-        {
-            set { if (!serial.IsOpen) serial.ReadTimeout = value; }
-            get { return serial.ReadTimeout; }
-        }
-
-        public int AgentWriteTimeout
-        {
-            set { if (!serial.IsOpen) serial.WriteTimeout = value; }
-            get { return serial.WriteTimeout; }
-        }
-
         public void AgentOpen()
         {
             if (platform == "Windows") {
@@ -183,38 +214,6 @@ namespace Windup.SerialTalker
                 readRunner = new Thread(new ThreadStart(ReadThread));
                 readRunner.Start();
             }
-        }
-
-        WriteFlagEnum WriteWindows(byte[] what)
-        {
-            var flag = WriteFlagEnum.Successed;
-            if (!serial.IsOpen)
-                flag = WriteFlagEnum.NotOpen;
-            else {
-                try {
-                    serial.Write(what, 0, what.Length);
-                } catch {
-                    flag = WriteFlagEnum.Exception;
-                }
-            }
-            return flag;
-        }
-
-        WriteFlagEnum WriteUnix(byte[] what)
-        {
-            var flag = WriteFlagEnum.Successed;
-            if (!serial.IsOpen)
-                flag = WriteFlagEnum.NotOpen;
-            else {
-                try {
-                    lock (lock_s) {
-                        serial.Write(what, 0, what.Length);
-                    }
-                } catch {
-                    flag = WriteFlagEnum.Exception;
-                }
-            }
-            return flag;
         }
 
         public WriteFlagEnum AgentWrite(byte[] what)
