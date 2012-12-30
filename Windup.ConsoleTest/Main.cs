@@ -23,6 +23,7 @@ namespace Windup.ConsoleTest
                     var result = s.AgentWrite (b);
                     Console.WriteLine (result);
                 }
+                Console.ReadKey ();
                 s.AgentClose ();
                 Debug.WriteLine ("close agent");
             }
