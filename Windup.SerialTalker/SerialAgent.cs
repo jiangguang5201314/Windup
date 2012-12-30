@@ -207,7 +207,7 @@ namespace Windup.SerialTalker
 
         public void AgentOpen()
         {
-            if (platform == "Windows" && ".Net" == runtime) {
+            if (platform == "Windows" && ".NET" == runtime) {
                 serial.DataReceived += new SerialDataReceivedEventHandler(DataReceviedHandler);
                 serial.Open();
             } else {
@@ -220,7 +220,7 @@ namespace Windup.SerialTalker
         public WriteFlagEnum AgentWrite(byte[] what)
         {
             if (platform == "Windows")
-                return WriteUnix(what);
+                return WriteWindows(what);
             else
                 return WriteUnix(what);
         }
