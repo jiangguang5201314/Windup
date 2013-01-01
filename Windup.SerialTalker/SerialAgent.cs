@@ -76,10 +76,15 @@ namespace Windup.SerialTalker
             runtime = t != null ? "Mono" : ".NET";
         }
 
-        void defaultTimeoutSet()
+        void DefaultTimeoutSet()
         {
             serial.ReadTimeout = 500;
             serial.WriteTimeout = 500;
+        }
+
+        void ReadDataToExternalVector (Int32 data)
+        {
+            transferDataDelegate(data);
         }
 
         void ReadThread()
@@ -89,6 +94,7 @@ namespace Windup.SerialTalker
                 if (serial.BytesToRead > 0) {
                     lock (lock_s) {
                         var result = (Int32)serial.ReadByte();
+                        ReadDataToExternalVector(result);
                         Debug.WriteLine(result);
                     }
                 }
@@ -100,8 +106,9 @@ namespace Windup.SerialTalker
         {
             var sp = sender as SerialPort;
             if (null != sp) {
-                var temp = sp.ReadByte();
-                Debug.WriteLine(temp.ToString());
+                var result = sp.ReadByte();
+                ReadDataToExternalVector(result);
+                Debug.WriteLine(result.ToString());
             }
         }
 
@@ -171,7 +178,7 @@ namespace Windup.SerialTalker
                 serial = new SerialPort();
             else
                 serial = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
-            defaultTimeoutSet();
+            DefaultTimeoutSet();
             JudgePlatform();
             JudgeRuntime();
         }
