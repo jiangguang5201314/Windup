@@ -7,6 +7,10 @@ namespace Windup.SerialTalker
         public BinaryAnalyzer ()
         {
         }
+
+        public void GetDataFromSerialAgent (Int32 data)
+        {
+        }
     }
 }
 
