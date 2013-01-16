@@ -48,6 +48,12 @@
     <Compile Include="IAnalyzer.cs" />
     <Compile Include="TextAnalyzer.cs" />
     <Compile Include="BinaryAnalyzer.cs" />
+    <Compile Include="ICodec.cs" />
+    <Compile Include="AnalyzerLinux.cs" />
+    <Compile Include="AnalyzerWindows.cs" />
+    <Compile Include="AnalyzerMac.cs" />
+    <Compile Include="CodecText.cs" />
+    <Compile Include="CodecBinary.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
