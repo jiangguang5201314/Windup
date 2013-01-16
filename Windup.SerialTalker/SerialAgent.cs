@@ -18,6 +18,7 @@ namespace Windup.SerialTalker
         Thread readRunner = null;
         object lock_s = new object ();
 
+        #region Define SerialAgent Attribute
         public string AgentPortName {
             set { if (!serial.IsOpen) serial.PortName = value; }
             get { return serial.PortName; }
@@ -64,7 +65,9 @@ namespace Windup.SerialTalker
             set { if (!serial.IsOpen) serial.WriteTimeout = value; }
             get { return serial.WriteTimeout; }
         }
+        #endregion
 
+        #region Define private member funtion
         void JudgePlatform()
         {
             platform = Platform.IsMac ? "Mac OSX" : (Platform.IsWindows ? "Windows" : "Linux");
@@ -143,7 +146,9 @@ namespace Windup.SerialTalker
             }
             return flag;
         }
+        #endregion
 
+        #region Define public member funtion
         public SerialAgent()
             : this("", 9600, Parity.None, 8, StopBits.One)
         {
@@ -248,5 +253,6 @@ namespace Windup.SerialTalker
                                   AgentPortName, AgentBaudRate, AgentParity, AgentDataBits,
                                   AgentStopBits, AgentHandshake, AgentReadTimeout, AgentWriteTimeout);
         }
+        #endregion
     }
 }
