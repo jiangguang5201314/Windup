@@ -46,8 +46,6 @@
     <Compile Include="WriteFlagEnum.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="IAnalyzer.cs" />
-    <Compile Include="TextAnalyzer.cs" />
-    <Compile Include="BinaryAnalyzer.cs" />
     <Compile Include="ICodec.cs" />
     <Compile Include="AnalyzerLinux.cs" />
     <Compile Include="AnalyzerWindows.cs" />
