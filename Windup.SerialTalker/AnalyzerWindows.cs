@@ -16,7 +16,7 @@ namespace Windup.SerialTalker
         {
         }
 
-        public void GetDataFromSerialAgent (Int32 data)
+        public void TransferDelegate (Int32 data)
         {
         }
     }
