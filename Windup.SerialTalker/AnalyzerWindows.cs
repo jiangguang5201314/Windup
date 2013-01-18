@@ -12,6 +12,7 @@ namespace Windup.SerialTalker
         /// else lineBreakFlag == 0
         /// </summary>
         int lineBreakFlag = 0;
+        TransferListDelegate transferListDelegate;
 
         bool IsLineBreak (Int32 data)
         {
@@ -19,7 +20,6 @@ namespace Windup.SerialTalker
                 lineBreakFlag = 1;
                 return false;
             }
-
             if (1 == lineBreakFlag) {
                 lineBreakFlag = 0;
                 if (10 == data) {
@@ -28,8 +28,13 @@ namespace Windup.SerialTalker
                     return false;
                 }
             }
-
             return false;
+        }
+
+        void BreakDataStream ()
+        {
+            transferListDelegate (tempList);
+            tempList = new List<Int32> ();
         }
 
         public AnalyzerWindows ()
@@ -37,19 +42,29 @@ namespace Windup.SerialTalker
             tempList = new List<Int32> ();
         }
 
+        public void BindListDelegate (TransferListDelegate tld)
+        {
+            transferListDelegate = tld;
+        }
+
         public void GetData (Int32 data)
         {
         }
 
+        //write data to SerialAgent
         public void WriteData (byte[] what)
         {
             if (what == null)
                 throw new ArgumentNullException ("what");
         }
 
+        //for SerialAgent
         public void TransferDelegate (Int32 data)
         {
-            tempList.Add (data);
+            if (IsLineBreak (data))
+                BreakDataStream ();
+            else
+                tempList.Add (data);
         }
     }
 }
