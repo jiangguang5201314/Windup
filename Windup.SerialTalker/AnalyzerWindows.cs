@@ -13,6 +13,7 @@ namespace Windup.SerialTalker
         /// </summary>
         int lineBreakFlag = 0;
         TransferListDelegate transferListDelegate;
+        public SerialAgent sa = null;
 
         bool IsLineBreak (Int32 data)
         {
@@ -37,9 +38,32 @@ namespace Windup.SerialTalker
             tempList = new List<Int32> ();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Windup.SerialTalker.AnalyzerWindows"/> class.
+        /// you must initialize serialagent instance
+        /// var a = new AnalyzerWindows();
+        /// a.sa.AgentName = "COM1";
+        /// ...
+        /// </summary>
         public AnalyzerWindows ()
         {
             tempList = new List<Int32> ();
+            sa = new SerialAgent ();
+            sa.BindDataDelegate (this.TransferDelegate);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Windup.SerialTalker.AnalyzerWindows"/> class.
+        /// just afferent a SerialAgent instance
+        /// </summary>
+        /// <param name='s'>
+        /// S.already initialized on external
+        /// </param>
+        public AnalyzerWindows (SerialAgent s)
+        {
+            tempList = new List<Int32> ();
+            sa = s;
+            sa.BindDataDelegate (this.TransferDelegate);
         }
 
         public void BindListDelegate (TransferListDelegate tld)
@@ -55,7 +79,8 @@ namespace Windup.SerialTalker
         public void WriteData (byte[] what)
         {
             if (what == null)
-                throw new ArgumentNullException ("what");
+                throw new ArgumentNullException ("what is null");
+            sa.AgentWrite (what);
         }
 
         //for SerialAgent
