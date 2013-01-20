@@ -13,7 +13,7 @@ namespace Windup.SerialTalker
         /// </summary>
         int lineBreakFlag = 0;
         TransferListDelegate transferListDelegate;
-        public SerialAgent sa = null;
+        public SerialAgent sa;
 
         bool IsLineBreak (Int32 data)
         {
