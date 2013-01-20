@@ -4,6 +4,7 @@ namespace Windup.SerialTalker
 {
     public interface IAnalyzer
     {
+        void BindListDelegate (TransferListDelegate tld);
         /* SerialAgent callback method TransferDataDelegate 
            or TransferDataByLinesDelegate
         */
