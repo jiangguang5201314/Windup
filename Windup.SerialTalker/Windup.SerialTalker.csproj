@@ -52,6 +52,9 @@
     <Compile Include="AnalyzerMac.cs" />
     <Compile Include="CodecText.cs" />
     <Compile Include="CodecBinary.cs" />
+    <Compile Include="IEncoder.cs" />
+    <Compile Include="IDecoder.cs" />
+    <Compile Include="ICodecFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
