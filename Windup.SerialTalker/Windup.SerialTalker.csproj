@@ -46,12 +46,9 @@
     <Compile Include="WriteFlagEnum.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="IAnalyzer.cs" />
-    <Compile Include="ICodec.cs" />
     <Compile Include="AnalyzerLinux.cs" />
     <Compile Include="AnalyzerWindows.cs" />
     <Compile Include="AnalyzerMac.cs" />
-    <Compile Include="CodecText.cs" />
-    <Compile Include="CodecBinary.cs" />
     <Compile Include="IEncoder.cs" />
     <Compile Include="IDecoder.cs" />
     <Compile Include="ICodecFactory.cs" />
