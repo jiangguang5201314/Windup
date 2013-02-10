@@ -2,11 +2,12 @@ using System;
 
 namespace Windup.SerialTalker
 {
-    public class ICodecFactory
-    {
-        public ICodecFactory ()
-        {
-        }
-    }
+	public interface ICodecFactory
+	{
+		IEncoder ReturnEncoder ();
+
+		IDecoder ReturnDecoder ();
+
+	}
 }
 
