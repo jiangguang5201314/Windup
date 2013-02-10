@@ -4,9 +4,9 @@ namespace Windup.SerialTalker
 {
 	public interface ICodecFactory
 	{
-		IEncoder ReturnEncoder ();
+		IEncoder GetEncoder ();
 
-		IDecoder ReturnDecoder ();
+		IDecoder GetDecoder ();
 
 	}
 }
