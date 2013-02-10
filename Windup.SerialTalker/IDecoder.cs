@@ -5,7 +5,7 @@ namespace Windup.SerialTalker
 {
 	public interface IDecoder
 	{
-		IList<Int32> Decode ();
+		Dictionary<string, string> Decode (IList<Int32> data);
 	}
 }
 
