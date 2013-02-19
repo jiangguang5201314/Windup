@@ -56,6 +56,7 @@
     <Compile Include="MyDecoder.cs" />
     <Compile Include="MyEncoder.cs" />
     <Compile Include="MyCodecFactory.cs" />
+    <Compile Include="Analyzer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
