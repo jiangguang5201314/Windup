@@ -41,7 +41,7 @@ namespace Windup.SerialTalker
                 tempList.Add (data);
         }
 
-        abstract bool IsLineBreak (Int32 data);
+        public abstract bool IsLineBreak (Int32 data);
     }
 }
 
