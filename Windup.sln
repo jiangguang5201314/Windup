@@ -33,6 +33,6 @@ Global
 		{C3C4DE06-D1D3-4E7F-95DB-7CFF34D9E34B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Windup\Windup.csproj
+		StartupItem = Windup.ConsoleTest\Windup.ConsoleTest.csproj
 	EndGlobalSection
 EndGlobal
