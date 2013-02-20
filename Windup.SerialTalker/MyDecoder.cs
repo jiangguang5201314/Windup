@@ -12,7 +12,11 @@ namespace Windup.SerialTalker
         public Dictionary<string, string> Decode (IList<Int32> data)
         {
             var d = new Dictionary<string, string> ();
-            d.Add (DateTime.Now.ToShortTimeString (), data.ToString ());
+            var tempString = "";
+            foreach (Int32 dt in data) {
+                tempString += dt.ToString ();
+            }
+            d.Add (DateTime.Now.ToLongTimeString (), tempString);
             return d;
         }
     }
