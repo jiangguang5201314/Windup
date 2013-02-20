@@ -18,7 +18,10 @@ namespace Windup.SerialTalker
 
         public void GetDataFromAnalyzer (IList<Int32> data)
         {
-            decoder.Decode (data);
+            var dic = decoder.Decode (data);
+            foreach (KeyValuePair<string, string> kvp in dic) {
+                Console.WriteLine ("key={0}, value={1}", kvp.Key, kvp.Value);
+            }
         }
     }
 }
