@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Threading;
 using Windup.SerialTalker;
 
 namespace Windup.ConsoleTest
@@ -7,15 +8,15 @@ namespace Windup.ConsoleTest
     class MainClass
     {
         public static void Main (string[] args)
-		{
-			Debug.WriteLine ("Enter Main");
+        {
+            Debug.WriteLine ("Enter Main");
 
-			var list = SerialList.ReturnSerialList ();
-			foreach (var port in list) {
-				Console.WriteLine (port);
-			}
+            var list = SerialList.ReturnSerialList ();
+            foreach (var port in list) {
+                Console.WriteLine (port);
+            }
 
-			/*
+            /*
             if (SerialAgent.TouchAgentPort ("COM3", 9600)) {
                 var s = new SerialAgent ("COM3", 9600);
                 s.AgentOpen ();
@@ -30,15 +31,16 @@ namespace Windup.ConsoleTest
             }
 */
 
-			if (SerialAgent.TouchAgentPort ("COM3", 9600)) {
-				var s = new SerialAgent("COM3", 9600);
-				s.AgentOpen();
-				var a = new AnalyzerWindows(s);
+            if (SerialAgent.TouchAgentPort ("COM3", 9600)) {
+                var s = new SerialAgent ("COM3", 9600);
+                s.AgentOpen ();
+                var a = new AnalyzerNT (s);
 
-				var f = new MyCodecFactory();
-				f.GetDecoder();
-				f.GetEncoder();
-			}
+                var f = new MyCodecFactory ();
+
+                var codec = new Codec (f, a);
+                Thread.Sleep (100000);
+            }
         }
     }
 }
