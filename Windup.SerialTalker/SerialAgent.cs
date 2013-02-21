@@ -108,7 +108,7 @@ namespace Windup.SerialTalker
             if (null != sp) {
                 var result = sp.ReadByte();
                 ReadDataToExternalVector(result);
-                Debug.WriteLine(result.ToString());
+                //Debug.WriteLine(result.ToString());
             }
         }
 
