@@ -19,7 +19,7 @@ namespace Windup.SerialTalker
         public void WriteData (byte[] what)
         {
             if (null == what)
-                throw ArgumentNullException ("what is null");
+                throw new ArgumentNullException ("what is null");
             analyzer.WriteData (what);
         }
 
