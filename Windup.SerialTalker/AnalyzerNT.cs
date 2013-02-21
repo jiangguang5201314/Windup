@@ -19,6 +19,7 @@ namespace Windup.SerialTalker
             if (1 == flag) {
                 flag = 0;
                 if (10 == data) {
+                    base.tempList.RemoveAt (tempList.Count - 1);
                     return true;
                 } else {
                     return false;
