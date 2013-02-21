@@ -16,6 +16,13 @@ namespace Windup.SerialTalker
             analyzer.BindListDelegate (this.GetDataFromAnalyzer);
         }
 
+        public void WriteData (byte[] what)
+        {
+            if (null == what)
+                throw ArgumentNullException ("what is null");
+            analyzer.WriteData (what);
+        }
+
         public void GetDataFromAnalyzer (IList<Int32> data)
         {
             var dic = decoder.Decode (data);
