@@ -89,13 +89,13 @@ namespace Windup.SerialTalker
 
         void ReadThread()
         {
-            Debug.WriteLine("Enter ReadThread");
+            //Debug.WriteLine("Enter ReadThread");
             do {
                 if (serial.BytesToRead > 0) {
                     lock (lock_s) {
                         var result = (Int32)serial.ReadByte();
                         ReadDataToExternalVector(result);
-                        Debug.WriteLine(result);
+                        //Debug.WriteLine(result);
                     }
                 }
                 Thread.Sleep(10);
