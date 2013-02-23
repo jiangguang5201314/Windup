@@ -24,6 +24,13 @@ namespace Windup.ConsoleTest
                 var f = new MyCodecFactory ();
 
                 var codec = new Codec (f, a);
+
+                byte[] b = {1, 2, 3, 13};
+                codec.WriteData (b);
+                Console.Read ();
+                s.AgentClose ();
+            } else {
+                Console.WriteLine ("串口可能已被占用!");
                 Console.Read ();
             }
         }
