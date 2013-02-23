@@ -106,9 +106,12 @@ namespace Windup.SerialTalker
         {
             var sp = sender as SerialPort;
             if (null != sp) {
-                var result = sp.ReadByte();
-                ReadDataToExternalVector(result);
+                var result = sp.ReadExisting().ToCharArray();
+                foreach(var c in result)
+                {
+                ReadDataToExternalVector(c);
                 //Debug.WriteLine(result.ToString());
+                }
             }
         }
 
