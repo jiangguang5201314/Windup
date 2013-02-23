@@ -13,23 +13,8 @@ namespace Windup.ConsoleTest
 
             var list = SerialList.ReturnSerialList ();
             foreach (var port in list) {
-                Console.WriteLine (port);
+                Console.WriteLine (port + "\t");
             }
-
-            /*
-            if (SerialAgent.TouchAgentPort ("COM3", 9600)) {
-                var s = new SerialAgent ("COM3", 9600);
-                s.AgentOpen ();
-                for (int i = 0; i < 100; i++) {
-                    byte[] b = new byte[]{12, 34, 56};
-                    var result = s.AgentWrite (b);
-                    Console.WriteLine (result);
-                }
-                Console.ReadKey ();
-                s.AgentClose ();
-                Debug.WriteLine ("close agent");
-            }
-*/
 
             if (SerialAgent.TouchAgentPort ("COM3", 9600)) {
                 var s = new SerialAgent ("COM3", 9600);
@@ -39,7 +24,7 @@ namespace Windup.ConsoleTest
                 var f = new MyCodecFactory ();
 
                 var codec = new Codec (f, a);
-                Thread.Sleep (100000);
+                Console.Read ();
             }
         }
     }
