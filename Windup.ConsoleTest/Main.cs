@@ -25,8 +25,7 @@ namespace Windup.ConsoleTest
 
                 var codec = new Codec (f, a);
 
-                byte[] b = {1, 2, 3, 13};
-                codec.WriteData (b);
+                codec.WriteData ("12345");
                 Console.Read ();
                 s.AgentClose ();
             } else {
