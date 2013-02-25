@@ -2,10 +2,17 @@ using System;
 
 namespace Windup.SerialTalker
 {
-    public class AnalyzerLinux
+    public class AnalyzerLinux : Analyzer
     {
-        public AnalyzerLinux ()
+        public AnalyzerLinux (SerialAgent s) : base(s)
         {
+        }
+
+        public override bool IsLineBreak (int data)
+        {
+            bool result;
+            result = (10 == data ? true : false);
+            return result;
         }
     }
 }
