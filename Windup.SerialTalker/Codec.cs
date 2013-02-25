@@ -29,10 +29,6 @@ namespace Windup.SerialTalker
         {
             var dic = decoder.Decode (data);
             queue.Enqueue (dic);
-
-            foreach (KeyValuePair<string, string> kvp in dic) {
-                Console.WriteLine ("key={0}, value={1}", kvp.Key, kvp.Value);
-            }
         }
     }
 }
