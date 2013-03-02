@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace Windup.SerialTalker
 {
@@ -10,17 +11,10 @@ namespace Windup.SerialTalker
 
         public byte[] Encode (string what)
         {
-            if (string.IsNullOrEmpty (what))
-                throw new ArgumentNullException ("what is null or empty!");
-
-            byte[] b = {};
-            char[] c = what.ToCharArray ();
-
-            for (int i = 0; i < c.Length; i++) {
-                b [i] = byte.Parse (c [i].ToString ());
-            }
-
-            return b;
+            //if (string.IsNullOrEmpty (what))
+            //throw new ArgumentNullException ("what is null or empty!");
+            //what = "0";
+            return Encoding.Default.GetBytes (what);
         }
     }
 }
