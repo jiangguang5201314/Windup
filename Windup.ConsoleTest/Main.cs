@@ -34,12 +34,21 @@ namespace Windup.ConsoleTest
                 codec = new Codec (f, a);
 
                 while (true) {
-                    Console.Write (">>>");
+                    Console.Write ("> ");
                     var cmd = Console.ReadLine ();
                     if ("EXIT" == cmd.ToUpper ()) {
+                        Console.WriteLine ("< See you later.");
+                        Thread.Sleep (700);
                         break;
                     } else {
                         codec.WriteData (cmd);
+                        Thread.Sleep (200);
+                    }
+                    if (0 < codec.queue.Count) {
+                        var d = codec.queue.Dequeue ();
+                        foreach (var kv in d) {
+                            Console.WriteLine ("< " + kv.Value);
+                        }
                     }
                 }
                 s.AgentClose ();
