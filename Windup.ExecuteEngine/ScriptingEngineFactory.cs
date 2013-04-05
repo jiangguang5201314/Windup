@@ -27,6 +27,7 @@ namespace Windup.ExecuteEngine
                 string path = System.AppDomain.CurrentDomain.BaseDirectory + "scripts\\";
                 path += fName;
                 ScriptingEngine eng = new ScriptingEngine(path);
+                engList.Add(eng);
             }
             return engList;
         }
