@@ -12,6 +12,7 @@ namespace Windup.ExecuteEngine
     public class ScriptingEngine
     {
         public string Name;
+        public string Explain;
         ScriptEngine eng;
         ScriptSource source;
         ScriptScope scope;
@@ -29,10 +30,12 @@ namespace Windup.ExecuteEngine
             scope = eng.CreateScope();
             ops = eng.CreateOperations();
             source.Execute(scope);
-            string o = "";
-            dynamic d = "";
-            scope.TryGetVariable("__caption__", out d);
-            Name = d as string;
+            dynamic caption = "";
+            dynamic explain = "";
+            scope.TryGetVariable("__caption__", out caption);
+            scope.TryGetVariable("__explain__", out explain);
+            Name = caption as string;
+            Explain = explain as string;
         }
 
         public void InitializationMethod(string clasz, string method)
