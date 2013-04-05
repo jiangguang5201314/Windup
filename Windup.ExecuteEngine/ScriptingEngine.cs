@@ -29,7 +29,9 @@ namespace Windup.ExecuteEngine
             scope = eng.CreateScope();
             ops = eng.CreateOperations();
             source.Execute(scope);
-            Name = scope.GetVariable("__caption__");
+            dynamic o = new object();
+            scope.TryGetVariable("__ctaption__", o);
+            Name = o as string;
         }
 
         public void InitializationMethod(string clasz, string method)
