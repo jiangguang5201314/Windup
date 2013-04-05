@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using Windup.SerialTalker;
+using Windup.ExecuteEngine;
 
 namespace Windup.ConsoleTest
 {
@@ -9,6 +10,8 @@ namespace Windup.ConsoleTest
     {
         public static void Main (string[] args)
         {
+            string path = System.AppDomain.CurrentDomain.BaseDirectory;
+            ScriptingEngine se = new ScriptingEngine(path + "\\scripts\\script00.py");
             Type t = Type.GetType ("Mono.Runtime");
             var r = t != null ? "Mono" : ".NET";
             Console.WriteLine ("WindupConsoleTest v1.0.0");
