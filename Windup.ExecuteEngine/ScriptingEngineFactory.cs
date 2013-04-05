@@ -12,7 +12,7 @@ namespace Windup.ExecuteEngine
         public ScriptingEngineFactory()
         {
             string path = System.AppDomain.CurrentDomain.BaseDirectory;
-            path += "\\scripts";
+            path += "scripts";
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
 
             foreach (FileInfo i in directoryInfo.GetFiles()) {
@@ -24,7 +24,7 @@ namespace Windup.ExecuteEngine
         {
             List<ScriptingEngine> engList = new List<ScriptingEngine>();
             foreach (string fName in list) {
-                string path = System.AppDomain.CurrentDomain.BaseDirectory + "\\scripts\\";
+                string path = System.AppDomain.CurrentDomain.BaseDirectory + "scripts\\";
                 path += fName;
                 ScriptingEngine eng = new ScriptingEngine(path);
             }
