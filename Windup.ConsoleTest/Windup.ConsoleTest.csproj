@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="scripts\script00.txt">
+    <Content Include="scripts\script00.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

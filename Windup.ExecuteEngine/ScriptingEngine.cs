@@ -24,16 +24,12 @@ namespace Windup.ExecuteEngine
             if (string.IsNullOrEmpty(scriptFileName)) 
                 throw new ArgumentNullException("script filename is null...");
            
-            Name = scriptFileName.Split('.')[0];
             eng = Python.CreateEngine();
             source = eng.CreateScriptSourceFromFile(scriptFileName);
-
             scope = eng.CreateScope();
-
             ops = eng.CreateOperations();
-
             source.Execute(scope);
-
+            Name = scope.GetVariable("__caption__");
         }
 
         public void InitializationMethod(string clasz, string method)
