@@ -19,7 +19,7 @@ namespace Windup.ConsoleTest
             ScriptingEngineFactory factory = new ScriptingEngineFactory();
             List<ScriptingEngine> list = factory.GetScriptingEngineList();
             foreach (var en in list) {
-                Console.WriteLine("name: " + en.Name + "--explain: " + en.Explain);
+                Console.WriteLine("name: " + en.GetVariable("__caption__") + "--explain: " + en.GetVariable("__explain__"));
             }
 
             Type t = Type.GetType("Mono.Runtime");
